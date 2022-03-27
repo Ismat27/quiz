@@ -47,6 +47,7 @@ export default function App() {
                     index: index,
                     value: option,
                     id: optionId,
+                    bg:"",
                     isClicked: false
                 }
             })
@@ -71,8 +72,8 @@ export default function App() {
                     index={optionData.index}
                     value={optionData.value}
                     isClicked={optionData.isClicked}
+                    bg={optionData.bg}
                     handleOptionClick={handleOptionClick}
-                    bg=""
                 />
             )
         })
