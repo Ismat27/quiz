@@ -5,7 +5,7 @@ export default function Option(props) {
     const id = props.id
     const optionIndex = props.index
     const styles = {
-        backgroundColor: props.isClicked? "#D6DBF5" : "white",
+        backgroundColor: props.bg?props.bg:(props.isClicked? "#D6DBF5" : "white"),
         border: props.isClicked? "none" : "0.794239px solid #4D5B9E" 
     }
     return (

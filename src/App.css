@@ -5,11 +5,9 @@
 }
 
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #FFFFFF;
+    background-color: #E5E5E5;;
     height: 100vh;
-    display: flex;
+    /* display: flex; */
     justify-content: center;
     font-family: 'Karla';
     color: #293264;
@@ -32,6 +30,8 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 95%;
+    margin: auto;
     
 }
 
@@ -54,6 +54,7 @@ button {
 
 .options {
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
 }
 
@@ -84,4 +85,11 @@ button {
     line-height: 19px;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.score-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: bold;
 }

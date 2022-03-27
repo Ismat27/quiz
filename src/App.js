@@ -6,15 +6,33 @@ import Option from './components/Option'
 
 export default function App() {
     const [grade, setGrade] = useState(0)
+    const [isSubmit, setIsubmit] = useState(false) // use for getting new questions
+    const [isAnswering, setIsAnswering] = useState(true)
     const [questions, setQuestions] = useState([])
     const [isStart, setIsStart] = useState(false)
     
     useEffect(() => {
-        fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple")
+        fetch("https://opentdb.com/api.php?amount=5&category=19&difficulty=medium")
         .then(response => response.json())
         .then(data => setQuestions(getQuestionsData(data.results)))
 
-    }, [])
+    }, [isSubmit])
+
+    function shuffle(arra1) {
+        var ctr = arra1.length, temp, index;
+    // While there are elements in the array
+        while (ctr > 0) {
+    // Pick a random index
+            index = Math.floor(Math.random() * ctr);
+    // Decrease ctr by 1
+            ctr--;
+    // And swap the last element with it
+            temp = arra1[ctr];
+            arra1[ctr] = arra1[index];
+            arra1[index] = temp;
+        }
+        return arra1;
+    }
 
     // form questionsData to be an object that will contain  the following ppts:
     // questionText, questionId, correctAnswer, options (to be provided to user to pick the correct answer)
@@ -22,7 +40,7 @@ export default function App() {
     function getQuestionsData(apiData) { 
         const newQuestions = apiData.map((data, index) => {
             const questionId = "question_" + (index+1)
-            const options = [data.correct_answer, ...data.incorrect_answers]
+            const options = shuffle([data.correct_answer, ...data.incorrect_answers])
             const newOptions = options.map((option, index) => {
                 const optionId = questionId + "option_" + (index + 1)
                 return {
@@ -36,7 +54,7 @@ export default function App() {
                 questionText: data.question,
                 questionId: questionId,
                 correctAnswer: data.correct_answer,
-                options: newOptions,    
+                options: newOptions,  
             }
         })
         return newQuestions
@@ -54,6 +72,7 @@ export default function App() {
                     value={optionData.value}
                     isClicked={optionData.isClicked}
                     handleOptionClick={handleOptionClick}
+                    bg=""
                 />
             )
         })
@@ -100,20 +119,55 @@ export default function App() {
     }
 
     function mark() {
+        let markedQuestions = []
+        let score = 0;
         for (const question of questions) {
             const correctAnswer = question.correctAnswer
-            const questionOptions = question.options
-            const chosenOption = questionOptions.filter(option => option.isClicked)[0]
-            if(chosenOption.value === correctAnswer) {
-                // score = score + 1
-                setGrade(prevGrade => prevGrade + 1)
-                // console.log("correct", score, grade);
+            let questionOptions = [...question.options]
+            const isQuestionAnswered = questionOptions.some(option => option.isClicked) // check if the user answered the question
+            if (isQuestionAnswered) {
+                const chosenOption = questionOptions.filter(option => option.isClicked)[0] // find the option the user picked
+                if(chosenOption.value === correctAnswer) {
+                    // setGrade(prevGrade => prevGrade + 1)
+                    // change the chosen option bg color to #94D7A2
+                    questionOptions[chosenOption.index].bg = "#94D7A2"
+                    chosenOption.bg = "#94D7A2" 
+                    score+=1
+                }
+                else {
+                    // setGrade(prevGrade => prevGrade)
+                    // set the background color of the chosen option to ligtred
+                    questionOptions[chosenOption.index].bg = "#F8BCBC"
+                    chosenOption.bg = "#F8BCBC"
+                    // get the correct option and set its bg color to #94D7A2
+                    questionOptions = questionOptions.map(option => {
+                        if (option.value === correctAnswer) {
+                            option.bg = "#94D7A2"
+                        }
+                        return option
+                    })
+                }
             }
             else {
-                setGrade(prevGrade => prevGrade)
-                // console.log("wrong", score, grade);
+                // get the correct option and set its bg color to #94D7A2
+                questionOptions = questionOptions.map(option => {
+                    if (option.value === correctAnswer) {
+                        option.bg = "#94D7A2"
+                    }
+                    return option
+                })
             }
+            markedQuestions.push({...question, options:questionOptions})
         }
+        setGrade(score)
+        setIsAnswering(false) //the user has finished answering the questions
+        console.log(markedQuestions);
+    }
+    
+    function playAgain() {
+        setIsubmit(prevState => !prevState) // get new set of questions
+        setIsAnswering(true) //the user is ready to answer question
+        setGrade(0) // since user is starting new set of questions, set the current grade to zero
     }
 
     
@@ -124,7 +178,13 @@ export default function App() {
                 <div className='questions--container'>
                     {questionsData}
                 </div>
-                <button onClick={mark}>Check answers<br/> your score: {grade}</button>
+                {isAnswering?
+                    <button onClick={mark}>Check answers</button>:
+                    <div className='score-info'>
+                        <p>You scored {grade +"/"+ questions.length} correct answers</p>
+                        <button onClick={playAgain}>Play again</button>
+                    </div>
+                }
             </>:
             <Starter start={() => setIsStart(true)}/>
         
