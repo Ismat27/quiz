@@ -10,14 +10,39 @@ export default function App() {
     const [isAnswering, setIsAnswering] = useState(true)
     const [questions, setQuestions] = useState([])
     const [isStart, setIsStart] = useState(false)
-    
-    useEffect(() => {
+    const [formData, setFormData] = useState({
+        ques_no: 10,
+        category: "",
+        difficulty: "",
+        type: ""
+
+    })
+    // useEffect(() => {
+    //     fetch("https://opentdb.com/api.php?amount=5&category=19&difficulty=medium")
+    //     .then(response => response.json())
+    //     .then(data => setQuestions(getQuestionsData(data.results)))
+
+    // }, [isSubmit])
+    function formElementHandler (event) {
+        const {name, value} = event.target
+        setFormData(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: value
+            }
+        }) 
+    }
+    function handleFormSubmit(event) {
+        console.log(formData);
+        event.preventDefault()
+    }
+    const start = (event) => {
+        setIsStart(true)
         fetch("https://opentdb.com/api.php?amount=5&category=19&difficulty=medium")
         .then(response => response.json())
         .then(data => setQuestions(getQuestionsData(data.results)))
-
-    }, [isSubmit])
-
+        event.preventDefault()
+    }
     function shuffle(arra1) {
         var ctr = arra1.length, temp, index;
     // While there are elements in the array
@@ -171,7 +196,6 @@ export default function App() {
         setGrade(0) // since user is starting new set of questions, set the current grade to zero
     }
 
-    
     return (
         <div className='container'>
             {isStart? 
@@ -187,8 +211,12 @@ export default function App() {
                     </div>
                 }
             </>:
-            <Starter start={() => setIsStart(true)}/>
-        
+            <Starter 
+                formData={formData}
+                formElementHandler={formElementHandler}
+                handleFormSubmit={handleFormSubmit}
+                start={start}
+            />
              }
         </div>
 
