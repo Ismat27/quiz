@@ -78,7 +78,29 @@ button {
     align-items: center;
     flex-direction: column;
 }
-
+.starter h1 {
+    margin-bottom: 10px;
+}
+input,select {
+    color: #4D5B9E;
+    text-indent: 10px;
+    width: 100%;
+    padding: 10px 2px;
+    border: none;
+    border-radius: 8px;
+}
+input:hover, input:focus, select:hover, select:focus {
+    outline: none;
+    border: 1px solid #4D5B9E;
+}
+.form-item {
+    margin-bottom: 10px;
+}
+label {
+    margin-bottom: 5px;
+    display: inline-block;
+    font-weight: bolder;
+}
 .description {
     font-weight: 400;
     font-size: 16px;
