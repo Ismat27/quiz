@@ -42,7 +42,6 @@ export default function App() {
         fetch(`https://opentdb.com/api.php?${urlParams}&encode=url3986`)
         .then(response => response.json())
         .then(data => setQuestions(getQuestionsData(data.results)))
-        console.log(formData);
         event.preventDefault()
     }
     function shuffle(arra1) {
