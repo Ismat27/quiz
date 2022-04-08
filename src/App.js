@@ -6,7 +6,7 @@ import Option from './components/Option'
 
 export default function App() {
     const [grade, setGrade] = useState(0)
-    const [isSubmit, setIsubmit] = useState(false) // use for getting new questions
+    // const [isSubmit, setIsubmit] = useState(false) // use for getting new questions
     const [isAnswering, setIsAnswering] = useState(true)
     const [questions, setQuestions] = useState([])
     const [isStart, setIsStart] = useState(false)
@@ -30,17 +30,19 @@ export default function App() {
                 ...prevFormData,
                 [name]: value
             }
-        }) 
+        })
     }
     function handleFormSubmit(event) {
         console.log(formData);
         event.preventDefault()
     }
     const start = (event) => {
+        const urlParams = `amount=${formData.ques_no}&difficulty=${formData.difficulty}&type=${formData.type}&category=${formData.category}`
         setIsStart(true)
-        fetch("https://opentdb.com/api.php?amount=5&category=19&difficulty=medium")
+        fetch(`https://opentdb.com/api.php?${urlParams}&encode=url3986`)
         .then(response => response.json())
         .then(data => setQuestions(getQuestionsData(data.results)))
+        console.log(formData);
         event.preventDefault()
     }
     function shuffle(arra1) {
@@ -95,7 +97,7 @@ export default function App() {
                     questionId={data.questionId}
                     id={optionData.id}
                     index={optionData.index}
-                    value={optionData.value}
+                    value={decodeURIComponent(optionData.value)}
                     isClicked={optionData.isClicked}
                     bg={optionData.bg}
                     handleOptionClick={handleOptionClick}
@@ -106,7 +108,7 @@ export default function App() {
             <Question
                 key={data.questionId}
                 id={data.questionId}
-                questionText={data.questionText}
+                questionText={decodeURIComponent(data.questionText)}
                 optionElements={optionElements}
             />
         )
@@ -187,13 +189,15 @@ export default function App() {
         }
         setGrade(score)
         setIsAnswering(false) //the user has finished answering the questions
-        console.log(markedQuestions);
+        
     }
     
     function playAgain() {
-        setIsubmit(prevState => !prevState) // get new set of questions
+        // setIsubmit(prevState => !prevState) // get new set of questions
         setIsAnswering(true) //the user is ready to answer question
         setGrade(0) // since user is starting new set of questions, set the current grade to zero
+        setIsStart(false)
+        // window.location.reload();
     }
 
     return (
@@ -201,6 +205,7 @@ export default function App() {
             {isStart? 
             <>
                 <div className='questions--container'>
+                    <h1>Choose correct answer</h1>
                     {questionsData}
                 </div>
                 {isAnswering?
