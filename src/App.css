@@ -32,6 +32,7 @@ button {
     align-items: center;
     max-width: 95%;
     margin: auto;
+    padding-bottom: 50px;
     
 }
 
@@ -111,6 +112,7 @@ label {
 
 .score-info {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 20px;
     font-weight: bold;
