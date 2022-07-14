@@ -1,1 +1,1 @@
-### A [quiz appp](https://smart-quizzical.herokuapp.com/) built with ReactJS library
+### A [quiz app](https://smart-quizzical.herokuapp.com/) built with ReactJs library
