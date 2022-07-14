@@ -6,12 +6,8 @@
 
 body {
     background-color: #E5E5E5;;
-    height: 100vh;
-    /* display: flex; */
-    justify-content: center;
     font-family: 'Karla';
     color: #293264;
-    /* align-items: center; */
 }
 
 button {
@@ -21,21 +17,28 @@ button {
     background-color: #4D5B9E;
     border: none;
     border-radius: 15px;
-    width: 193px;
-    height: 52px;
+    padding: 10px;
     cursor: pointer;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 95%;
+    width: 95%;
     margin: auto;
-    padding-bottom: 50px;
     
 }
-
+.quiz-area {
+    max-width: 700px;
+    margin: auto;
+    padding-bottom: 50px;
+}
+.question-no {
+    margin-top: 20px;
+}
+.nav-btns {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
 .questions--container {
     margin-bottom: 20px;
 }
@@ -61,19 +64,16 @@ button {
 
 .option {
     font-weight: 500;
-    font-size: 12x;
     line-height: 12px;
     min-height: 25px;
-    text-align: center;
-    /* border: 0.794239px solid #4D5B9E; */
-    border-radius: 7.94239px;
+    border-radius: 8px;
     padding: 5px;
     cursor: pointer;
 
 }
 
 .starter {
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,6 +81,9 @@ button {
 }
 .starter h1 {
     margin-bottom: 10px;
+}
+.start-btn {
+    width: 100%;
 }
 input,select {
     color: #4D5B9E;
