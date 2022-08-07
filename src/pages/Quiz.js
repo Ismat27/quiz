@@ -10,12 +10,12 @@ const Quiz = (props) => {
            )
     }
     
-    const btnStyles = {
+    const prevBtnStyles = {
         backgroundColor: index > 0? '#4D5B9E': 'grey',
         cursor: index > 0? 'pointer' : 'auto'
     }
 
-    const nextBtnStyle = {
+    const nextBtnStyles = {
         backgroundColor: index < props.questions.length - 1? '#4D5B9E': 'grey',
         cursor: index < props.questions.length - 1 ? 'pointer': 'auto'
     }
@@ -47,8 +47,8 @@ const Quiz = (props) => {
                 {props.questionsData[index]}
             </div>
             <div className="nav-btns">
-                <button style={btnStyles} onClick={() => prevQuestion(index, props.questions.length)}>Previous</button>
-                <button style={nextBtnStyle} onClick={() => nextQuestion(index, props.questions.length)}>Next</button>
+                <button style={prevBtnStyles} onClick={() => prevQuestion(index, props.questions.length)}>Previous</button>
+                <button style={nextBtnStyles} onClick={() => nextQuestion(index, props.questions.length)}>Next</button>
             </div>
             {props.isAnswering?
                 <button onClick={props.mark}>Submit</button>:
