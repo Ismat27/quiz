@@ -45,7 +45,6 @@ export default function Starter(props) {
                         <option value={"boolean"}>True/False</option>
                     </select>
                 </div>
-                {/* <button>Submit</button> */}
                 <button className="start-btn">Start Quiz</button>
             </form>
         </div>

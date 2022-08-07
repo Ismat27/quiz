@@ -191,12 +191,10 @@ export default function App() {
     }
     
     function playAgain() {
-        // setIsubmit(prevState => !prevState) // get new set of questions
         setIsAnswering(true) //the user is ready to answer question
         setGrade(0) // since user is starting new set of questions, set the current grade to zero
         setIsStart(false)
         setQuestions([])
-        // window.location.reload();
     }
 
     return (
