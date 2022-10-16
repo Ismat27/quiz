@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Spinner from "../components/Spinner"
 
 const Quiz = (props) => {
 
@@ -6,7 +7,7 @@ const Quiz = (props) => {
 
     if (props.questions.length <= 0) {
         return (
-            <h1>Loading...</h1>
+            <Spinner/>
            )
     }
     
