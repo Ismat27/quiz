@@ -8,7 +8,7 @@ const Quiz = (props) => {
     if (props.questions.length <= 0) {
         return (
             <Spinner/>
-           )
+        )
     }
     
     const prevBtnStyles = {

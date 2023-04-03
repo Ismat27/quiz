@@ -16,7 +16,6 @@ export default function App() {
         category: "",
         difficulty: "",
         type: ""
-
     })
    
     function formElementHandler (event) {

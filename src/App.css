@@ -24,6 +24,9 @@ button {
 .container {
     width: 95%;
     margin: auto;
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
     
 }
 .quiz-area {
@@ -69,14 +72,11 @@ button {
     border-radius: 8px;
     padding: 5px;
     cursor: pointer;
-
 }
 
 .starter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
 }
 .starter h1 {
     margin-bottom: 10px;
